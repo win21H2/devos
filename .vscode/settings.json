@@ -2,5 +2,8 @@
     "C_Cpp.errorSquiggles": "enabled",
     "cSpell.words": [
         "Strln"
-    ]
+    ],
+    "files.associations": {
+        "rand.h": "c"
+    }
 }
