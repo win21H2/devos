@@ -1,8 +1,8 @@
 #include "print.h"
 #include "rand.h"
 
-const static size_t NUM_COLS = 80;
-const static size_t NUM_ROWS = 25;
+static const size_t NUM_COLS = 80;
+static const size_t NUM_ROWS = 25;
 
 struct Char {
     uint8_t character;
@@ -10,18 +10,14 @@ struct Char {
 };
 
 struct Char* buffer = (struct Char*) 0xb8000;
-size_t col = 0;
-size_t row = 0;
+size_t col, row = 0;
 uint8_t color = PRINT_COLOR_WHITE | PRINT_COLOR_BLACK << 4;
 
 void ClrRow(size_t row) {
-    struct Char empty = (struct Char) {
-        character: ' ',
-        color: color,
-    };
-
+    struct Char empty = { ' ', color };
+    struct Char* row_start = buffer + NUM_COLS * row;
     for (size_t col = 0; col < NUM_COLS; col++) {
-        buffer[col + NUM_COLS * row] = empty;
+        row_start[col] = empty;
     }
 }
 
@@ -40,13 +36,14 @@ void pNewLine() {
     }
 
     for (size_t row = 1; row < NUM_ROWS; row++) {
+        struct Char* src = buffer + NUM_COLS * row;
+        struct Char* dest = buffer + NUM_COLS * (row - 1);
         for (size_t col = 0; col < NUM_COLS; col++) {
-            struct Char character = buffer[col + NUM_COLS * row];
-            buffer[col + NUM_COLS * (row - 1)] = character;
+            dest[col] = src[col];
         }
     }
 
-    ClrRow(NUM_COLS - 1);
+    ClrRow(NUM_ROWS - 1);
 }
 
 void pChar(char character) {
@@ -55,27 +52,17 @@ void pChar(char character) {
         return;
     }
 
-    if (col > NUM_COLS) {
+    if (col >= NUM_COLS) {
         pNewLine();
     }
 
-    buffer[col + NUM_COLS * row] = (struct Char) {
-        character: (uint8_t) character,
-        color: color,
-    };
-
+    buffer[col + NUM_COLS * row] = (struct Char) { (uint8_t) character, color };
     col++;
 }
 
 void pStr(char* str) {
-    for (size_t i = 0; 1; i++) {
-        char character = (uint8_t) str[i];
-
-        if (character == '\0') {
-            return;
-        }
-
-        pChar(character);
+    for (size_t i = 0; str[i] != '\0'; i++) {
+        pChar(str[i]);
     }
 }
 
@@ -85,7 +72,7 @@ void pStrln(char* str) {
 }
 
 void pSetColor(uint8_t foreground, uint8_t background) {
-    color = foreground + (background << 4);
+    color = foreground | (background << 4);
 }
 
 void pRandomRoot() {
