@@ -1,12 +1,14 @@
 #include "print.h"
 #include "input.h"
 
-void kernel_main() {
-    pre_boot();
-    post_boot();
-}
+/* 
+TODO:
+- Implement delay function
+- Implement basic CLI (including interfacing with text)
+- Try to get it to echo out the text the user is inputting (i.e. displaying the characters being typed)
+*/
 
-void pre_boot() {
+void kernel_main() {
     pClear();
     pSetColor(PRINT_COLOR_LIGHT_RED, PRINT_COLOR_BLACK);
     pStr("root sID: ", NULL);
@@ -18,14 +20,8 @@ void pre_boot() {
     pStrln("OSK developed by 9662e103-129a");
 
     pNewLine();
-    pStrln("Press any key to continue...");
 
-    getKey();
-
-    pNewLine();
-    pStrln("Booting...");
-}
-
-void post_boot() {
-    // TODO: turn into CLI (also, implement Delay function)
+    while(1) {
+        getKey();
+    }
 }

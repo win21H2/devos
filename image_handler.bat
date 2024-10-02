@@ -4,39 +4,39 @@ setlocal
 if "%~1"=="" goto menu
 
 :process_args
-if "%~1"=="$1" (
+if "%~1"=="-b" (
     set choice=1
     goto build
-) else if "%~1"=="$2" (
+) else if "%~1"=="-r" (
     set choice=2
     set RUN_GIT_BASH=true
     goto build
-) else if "%~1"=="$3" (
+) else if "%~1"=="-e" (
     goto end
 ) else (
-    echo FLAG ERROR. Please use $1, $2, or $3.
+    echo FLAG ERROR. Please use -b, -r, or -e.
     goto end
 )
 
 :menu
 echo.
 echo Select an option:
-echo 1. Build only
-echo 2. Build and run in QEMU
-echo 3. Exit
+echo b. Build only
+echo r. Build and run in QEMU
+echo e. Exit
 
 choice /c 123 /n /m "Enter an option: "
 set "choice=%errorlevel%"
 
-if "%choice%"=="1" (
+if "%choice%"=="b" (
     goto build
-) else if "%choice%"=="2" (
+) else if "%choice%"=="r" (
     set RUN_GIT_BASH=true
     goto build
-) else if "%choice%"=="3" (
+) else if "%choice%"=="e" (
     goto end
 ) else (
-    echo ARG ERROR. Please use 1, 2, or 3.
+    echo ARG ERROR. Please use b, r, or e.
     goto menu
 )
 
