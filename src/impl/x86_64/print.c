@@ -47,17 +47,36 @@ void pNewLine() {
 }
 
 void pChar(char character) {
-    if (character == '\n') {
-        pNewLine();
-        return;
-    }
-
     if (col >= NUM_COLS) {
         pNewLine();
     }
 
     buffer[col + NUM_COLS * row] = (struct Char) { (uint8_t) character, color };
     col++;
+}
+
+void pInput(char character) {
+    if (character == '\n') {
+        pNewLine();
+        return;
+    }
+
+    if (character == '\b') {
+        if (col > 0) {
+            col--;
+            buffer[col + NUM_COLS * row] = (struct Char) { ' ', color };
+        } else if (row > 4) {
+            row--;
+            col = NUM_COLS - 1;
+            while (col > 0 && buffer[col + NUM_COLS * row].character == ' ') {
+                col--;
+            }
+            buffer[col + NUM_COLS * row] = (struct Char) { ' ', color };
+        }
+        return;
+    }
+
+    pChar(character);
 }
 
 void pStr(char* str) {

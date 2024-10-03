@@ -1,13 +1,6 @@
 #include "print.h"
 #include "input.h"
 
-/* 
-TODO:
-- Implement delay function
-- Implement basic CLI (including interfacing with text)
-- Try to get it to echo out the text the user is inputting (i.e. displaying the characters being typed)
-*/
-
 void kernel_main() {
     pClear();
     pSetColor(PRINT_COLOR_LIGHT_RED, PRINT_COLOR_BLACK);
