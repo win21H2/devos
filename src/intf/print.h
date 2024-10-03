@@ -21,3 +21,11 @@ enum {
 	PRINT_COLOR_YELLOW = 14,
 	PRINT_COLOR_WHITE = 15,
 };
+
+void pClear();
+void pSetColor(uint8_t foreground, uint8_t background);
+void pStr(const char* str, size_t len);
+void pRandomRoot();
+void pNewLine();
+void pStrln(const char* str);
+void pInput(char character);

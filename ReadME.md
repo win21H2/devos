@@ -21,3 +21,8 @@ Flag options:
 1) Run `docker rmi devos -f` to remove image
 
 # ASM Registers reference
+
+# Semantics
+
+ - Any constants or variables that interact with the HWL are declared in all capital letters
+ - Any functions are declared in camelCase

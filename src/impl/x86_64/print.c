@@ -1,3 +1,8 @@
+/* TODO 
+- Implement text underlining
+- Implement text bold'ing
+*/
+
 #include "print.h"
 #include "rand.h"
 
@@ -79,14 +84,22 @@ void pInput(char character) {
     pChar(character);
 }
 
-void pStr(char* str) {
-    for (size_t i = 0; str[i] != '\0'; i++) {
+size_t my_strlen(const char* str) {
+    size_t len = 0;
+    while (str[len] != '\0') {
+        len++;
+    }
+    return len;
+}
+
+void pStr(const char* str, size_t len) {
+    for (size_t i = 0; i < len && str[i] != '\0'; i++) {
         pChar(str[i]);
     }
 }
 
-void pStrln(char* str) {
-    pStr(str);
+void pStrln(const char* str) {
+    pStr(str, my_strlen(str));
     pNewLine();
 }
 
@@ -98,5 +111,5 @@ void pRandomRoot() {
     char root[9];
     srand((unsigned int)time());
     genRandRoot(root, 10);
-    pStr(root);
+    pStr(root, my_strlen(root));
 }

@@ -61,4 +61,4 @@
 #define SC_SPACE 0x39
 
 char getKey();
-void pReadLine(char* buffer, size_t max_length);
+void readLine(char* buffer, size_t max_length);

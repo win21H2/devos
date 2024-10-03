@@ -14,7 +14,8 @@ void kernel_main() {
 
     pNewLine();
 
+    char buffer[256];
     while(1) {
-        getKey();
+        readLine(buffer, sizeof(buffer));
     }
 }

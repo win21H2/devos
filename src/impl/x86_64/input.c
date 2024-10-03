@@ -1,3 +1,8 @@
+/*TODO
+- Implement right/left/up/down arrow keys
+- Implement a flashing vertical cursor
+*/
+
 #include "input.h"
 #include "print.h"
 #include <stddef.h>
@@ -14,10 +19,7 @@ static inline void outb(uint16_t port, uint8_t data) {
     outb_asm(port, data);
 }
 
-// TODO: implement right/left/up/down arrow keys
-// TODO: implement basic commands and outputs when users press enter
-
-static const char scancode_map[256] = {
+static const char scanCodeMap[256] = {
     [SC_ESC] = 0x1B,
     [SC_1] = '1', [SC_2] = '2', [SC_3] = '3', [SC_4] = '4', [SC_5] = '5', [SC_6] = '6', [SC_7] = '7', [SC_8] = '8', [SC_9] = '9', [SC_0] = '0',
     [SC_MINUS] = '-',
@@ -40,34 +42,37 @@ static const char scancode_map[256] = {
 };
 
 char scancodeToChar(uint8_t scancode) {
-    return scancode_map[scancode];
+    return scanCodeMap[scancode];
 }
 
 char getKey() {
-    uint8_t scancode;
+    uint8_t scanCode;
     char key = 0;
 
     while (!(inb(KEYBOARD_STATUS_PORT) & KEYBOARD_STATUS_MASK_OUT_BUF));
-    scancode = inb(KEYBOARD_DATA_PORT);
+    scanCode = inb(KEYBOARD_DATA_PORT);
 
-    key = scancodeToChar(scancode);
-
-    if (key) {
-        pInput(key);
-    }
+    key = scancodeToChar(scanCode);
 
     return key;
 }
 
-void pReadLine(char* buffer, size_t max_length) {
+void readLine(char* buffer, size_t max_length) {
     size_t length = 0;
+    pStr("dOSS root> ", 11);
     while (length < max_length - 1) {
         char c = getKey();
         if (c == '\n') {
+            pNewLine();
             break;
         }
 
-        if (c != 0) {
+        if (c == '\b') {
+            if (length > 0) {
+                length--;
+                pInput(c);
+            }
+        } else if (c != 0) {
             buffer[length++] = c;
             pInput(c);
         }
