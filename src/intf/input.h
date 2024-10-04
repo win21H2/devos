@@ -60,5 +60,9 @@
 #define SC_SLASH 0x35
 #define SC_SPACE 0x39
 
+// arrow keys (todo: implement functionality - try to find correct scan codes for these keys)
+// #define SC_LEFTARR 0x75
+// #define SC_RIGHTARR 0x77
+
 char getKey();
 void readLine(char* buffer, size_t max_length);

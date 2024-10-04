@@ -28,4 +28,4 @@ void pStr(const char* str, size_t len);
 void pRandomRoot();
 void pNewLine();
 void pStrln(const char* str);
-void pInput(char character);
+void pCliInput(char character);

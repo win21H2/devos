@@ -17,5 +17,6 @@ void kernel_main() {
     char buffer[256];
     while(1) {
         readLine(buffer, sizeof(buffer));
+        // todo: make it so that when the enter key is pressed, it "executes" a command (which would be just printing out "hello")
     }
 }

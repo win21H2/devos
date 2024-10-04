@@ -60,14 +60,14 @@ void pChar(char character) {
     col++;
 }
 
-void pInput(char character) {
+void pCliInput(char character) {
     if (character == '\n') {
         pNewLine();
         return;
     }
 
     if (character == '\b') {
-        if (col > 0) {
+        if (col > 11) {
             col--;
             buffer[col + NUM_COLS * row] = (struct Char) { ' ', color };
         } else if (row > 4) {
@@ -84,7 +84,7 @@ void pInput(char character) {
     pChar(character);
 }
 
-size_t my_strlen(const char* str) {
+size_t strLen(const char* str) {
     size_t len = 0;
     while (str[len] != '\0') {
         len++;
@@ -99,7 +99,7 @@ void pStr(const char* str, size_t len) {
 }
 
 void pStrln(const char* str) {
-    pStr(str, my_strlen(str));
+    pStr(str, strLen(str));
     pNewLine();
 }
 
@@ -111,5 +111,5 @@ void pRandomRoot() {
     char root[9];
     srand((unsigned int)time());
     genRandRoot(root, 10);
-    pStr(root, my_strlen(root));
+    pStr(root, strLen(root));
 }
