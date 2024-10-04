@@ -26,3 +26,4 @@ Flag options:
 
  - Any constants or variables that interact with the HWL are declared in all capital letters
  - Any functions are declared in camelCase
+ - Any functions or pointers in assembly are declared in snake_case

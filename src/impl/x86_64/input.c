@@ -59,23 +59,22 @@ char getKey() {
 
 void readLine(char* buffer, size_t max_length) {
     size_t length = 0;
-    size_t prompt_length = 11;
-    pStr("dOSS root> ", prompt_length);
-    
+    pStr("dOSS root> ", 11);
     while (length < max_length - 1) {
         char c = getKey();
-        
-        if (c == SC_ENTER) {
+        if (c == '\n') {
             pNewLine();
             break;
-        } else if (c == SC_BACKSPACE) {
+        }
+
+        if (c == '\b') {
             if (length > 0) {
                 length--;
-                pCliInput(c);
+                pInput(c);
             }
         } else if (c != 0) {
             buffer[length++] = c;
-            pCliInput(c);
+            pInput(c);
         }
     }
     

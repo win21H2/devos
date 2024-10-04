@@ -3,6 +3,7 @@
         "Strln"
     ],
     "files.associations": {
-        "rand.h": "c"
+        "rand.h": "c",
+        "stddef.h": "c"
     }
 }

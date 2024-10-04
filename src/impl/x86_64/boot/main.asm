@@ -21,6 +21,7 @@ start:
 check_multiboot:
 	cmp eax, 0x36d76289
 	jne .no_multiboot
+
 	ret
 
 .no_multiboot:
@@ -40,6 +41,7 @@ check_cpuid:
 	popfd
 	cmp eax, ecx
 	je .no_cpuid
+
 	ret
 
 .no_cpuid:

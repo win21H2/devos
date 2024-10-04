@@ -1,10 +1,7 @@
-/* TODO 
-- Implement text underlining
-- Implement text bold'ing
-*/
-
 #include "print.h"
 #include "rand.h"
+#include <stddef.h>
+#include <stdint.h>
 
 static const size_t NUM_COLS = 80;
 static const size_t NUM_ROWS = 25;
@@ -60,14 +57,14 @@ void pChar(char character) {
     col++;
 }
 
-void pCliInput(char character) {
+void pInput(char character) {
     if (character == '\n') {
         pNewLine();
         return;
     }
 
     if (character == '\b') {
-        if (col > 11) {
+        if (col > 0) {
             col--;
             buffer[col + NUM_COLS * row] = (struct Char) { ' ', color };
         } else if (row > 4) {
